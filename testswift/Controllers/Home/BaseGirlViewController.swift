@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import KFSwiftImageLoader
 
 class BaseGirlViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -16,12 +15,16 @@ class BaseGirlViewController: UIViewController, UITableViewDelegate, UITableView
     var girlList: NSMutableArray = []
     var girlTableView: UITableView?
     var refreshControl: ODRefreshControl?
-    let pageSize = 20
+    let pageSize = 60
     
+    /**
+     statusbar : 20 naviBar : 44  tabbar : 49
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
-        self.girlTableView = UITableView(frame: CGRectMake(0, 20, self.view.bounds.size.width, self.view.bounds.size.height - 69))
+        
+        self.girlTableView = UITableView(frame: CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 50))
         self.girlTableView?.delegate = self;
         self.girlTableView?.dataSource = self;
         self.girlTableView?.registerClass(GirlCell.self, forCellReuseIdentifier: "GirlCell")
@@ -44,11 +47,7 @@ class BaseGirlViewController: UIViewController, UITableViewDelegate, UITableView
         let girl = self.girlList.objectAtIndex(indexPath.row) as! GirlModel
         let cell = tableView.dequeueReusableCellWithIdentifier("GirlCell", forIndexPath: indexPath) as! GirlCell;
         cell.titleLabel?.text = girl.title
-        cell.girlImageView?.image = nil
-        cell.girlImageView?.loadImageFromURLString(girl.pic!, placeholderImage: nil, completion: {finished, error in
-            print("error : \(error)")
-        })
-        print("girl.pic : \(girl.pic)")
+        cell.setImageUrl(girl.pic!)
         return cell
     }
     
@@ -60,11 +59,11 @@ class BaseGirlViewController: UIViewController, UITableViewDelegate, UITableView
         if width > self.view.bounds.width{
             height = self.view.bounds.width * height / width
         }
-        print("pic : \(model.title)  height : \(height)")
         return height
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("section : \(section) , count : \(self.girlList.count)")
         return self.girlList.count
     }
     
@@ -84,24 +83,36 @@ class BaseGirlViewController: UIViewController, UITableViewDelegate, UITableView
                 //print(response.result)   // result of response serialization
                 
                 if let JSON = response.result.value {
-                    let imgs = JSON.valueForKey("imgs") as! NSArray
-                    for item in imgs{
-                        let gril = GirlModel()
-                        print(item)
-                        gril.title = item.objectForKey("fromPageTitle") as? String
-                        gril.pic = item.objectForKey("objURL") as? String
-                        gril.width = item.objectForKey("width") as? Int
-                        gril.height = item.objectForKey("height") as? Int
-                        self.girlList.insertObject(gril, atIndex: 0)
+                    let value = JSON.valueForKey("data")
+                    if (value != nil) {
+                        let imgs = value as! NSArray
+                        for item in imgs{
+                            let girl = GirlModel()
+                            girl.title = item.objectForKey("fromPageTitle") as? String
+                            girl.pic = item.objectForKey("hoverURL") as? String
+                            girl.width = item.objectForKey("width") as? Int
+                            girl.height = item.objectForKey("height") as? Int
+                            if (girl.title == nil || girl.pic == nil) {
+                                continue;
+                            }
+                            do{
+                                let regular = try NSRegularExpression(pattern: "<strong>.*?</strong>", options: NSRegularExpressionOptions.CaseInsensitive)
+                                girl.title = regular.stringByReplacingMatchesInString(girl.title!, options: NSMatchingOptions.ReportCompletion, range: NSMakeRange(0, girl.title!.characters.count), withTemplate: "");
+                            }catch{
+                                print(error)
+                            }
+                            self.girlList.insertObject(girl, atIndex: 0)
+                            print("GirlModel : title : \(girl.title), url : \(girl.pic)")
+                        }
+                        self.refreshControl?.endRefreshing()
+                        self.girlTableView?.reloadData()
                     }
-                    self.refreshControl?.endRefreshing()
-                    self.girlTableView?.reloadData()
                 }
         }
     }
     
     func getUrl() ->String{
-        return "http://image.baidu.com/search/avatarjson?tn=resultjsonavatarnew&ie=utf-8&word=%E7%BE%8E%E5%A5%B3&cg=girl&pn=\(pageSize * page)&rn=\(pageSize)&itg=0&z=0&fr=&width=&height=&lm=-1&ic=0&s=0&st=-1&gsm=e9070000f0";
+        return "http://image.baidu.com/search/avatarjson?tn=resultjsonavatarnew&ie=utf-8&word=%E7%BE%8E%E5%A5%B3&cg=%E7%BE%8E%E5%A5%B3&pn=\(pageSize * page)&rn=\(pageSize)&itg=0&z=0&fr=&width=&height=&lm=-1&ic=0&s=0&st=-1&gsm=e9070000f0";
     }
 
 }

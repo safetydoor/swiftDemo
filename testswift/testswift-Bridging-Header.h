@@ -12,5 +12,7 @@
 #define testswift_Bridging_Header_h
 
 #import "ODRefreshControl.h"
+#import "NSString+URL.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 #endif /* testswift_Bridging_Header_h */

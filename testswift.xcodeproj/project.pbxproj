@@ -24,6 +24,7 @@
 		3EA4618E1C18334B003276FF /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA461881C18334B003276FF /* CustomTabBarController.swift */; };
 		3EA4618F1C18334B003276FF /* MengViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA461891C18334B003276FF /* MengViewController.swift */; };
 		3EA461901C18334B003276FF /* GirlModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA4618B1C18334B003276FF /* GirlModel.swift */; };
+		3EDF30711C3D27C5009BB9AF /* NSString+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EDF30701C3D27C5009BB9AF /* NSString+URL.m */; };
 		C7A840E0DE2C604E8D84BFE6 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A4B34DB774D8762580B92A /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +89,8 @@
 		3EA461881C18334B003276FF /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		3EA461891C18334B003276FF /* MengViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MengViewController.swift; sourceTree = "<group>"; };
 		3EA4618B1C18334B003276FF /* GirlModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GirlModel.swift; sourceTree = "<group>"; };
+		3EDF306F1C3D27C5009BB9AF /* NSString+URL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URL.h"; sourceTree = "<group>"; };
+		3EDF30701C3D27C5009BB9AF /* NSString+URL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URL.m"; sourceTree = "<group>"; };
 		F31A32A40A8228C8649BFA49 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -175,6 +178,7 @@
 		3EA461491C167AA0003276FF /* testswift */ = {
 			isa = PBXGroup;
 			children = (
+				3EDF306B1C3D254A009BB9AF /* Utils */,
 				3EA461861C18334B003276FF /* Controllers */,
 				3EA4618A1C18334B003276FF /* Models */,
 				3EA4618C1C18334B003276FF /* Resources */,
@@ -231,6 +235,23 @@
 				3EA2C1681C19848500795BB9 /* GirlCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		3EDF306B1C3D254A009BB9AF /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3EDF306C1C3D2567009BB9AF /* Category */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		3EDF306C1C3D2567009BB9AF /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				3EDF306F1C3D27C5009BB9AF /* NSString+URL.h */,
+				3EDF30701C3D27C5009BB9AF /* NSString+URL.m */,
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 		4FAB3A6C874FBCE6A820F770 /* Frameworks */ = {
@@ -444,6 +465,7 @@
 				3EA461901C18334B003276FF /* GirlModel.swift in Sources */,
 				3EA2C1BA1C20032000795BB9 /* BaseGirlViewController.swift in Sources */,
 				3EA461591C167AA0003276FF /* AppDelegate.swift in Sources */,
+				3EDF30711C3D27C5009BB9AF /* NSString+URL.m in Sources */,
 				3EA2C19C1C1AD97C00795BB9 /* ODRefreshControl.m in Sources */,
 				3EA2C1691C19848500795BB9 /* GirlCell.swift in Sources */,
 			);

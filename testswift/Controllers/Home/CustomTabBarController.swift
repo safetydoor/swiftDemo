@@ -21,14 +21,15 @@ class CustomTabBarController: UITabBarController {
     }
     
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
-        switch item.tag {
-        case 0:
-            self.navigationItem.title = "1111111111"
-        case 1:
-            self.navigationItem.title = "2222222222"
-        default:
-            self.navigationItem.title = "3333333333"
-        }
+        self.navigationItem.title = item.title;
+//        switch item.tag {
+//        case 0:
+//            self.navigationItem.title = "1111111111"
+//        case 1:
+//            self.navigationItem.title = "2222222222"
+//        default:
+//            self.navigationItem.title = "3333333333"
+//        }
         
     }
     

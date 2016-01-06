@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+//import AlamofireImage
 
 class GirlCell: UITableViewCell {
     
@@ -32,7 +32,6 @@ class GirlCell: UITableViewCell {
         titleLabel?.textAlignment = NSTextAlignment.Center
         girlImageView = UIImageView()
         girlImageView?.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 0.4)
-        print(girlImageView)
         self.addSubview(girlImageView!)
         self.addSubview(titleLabel!)
         self.selectionStyle = UITableViewCellSelectionStyle.None
@@ -45,9 +44,17 @@ class GirlCell: UITableViewCell {
     }
     
     override func layoutSubviews() {
-        print("self.bounds : \(self.bounds)")
-        titleLabel?.frame = CGRectMake(16, self.bounds.height - 60, self.bounds.width - 32, 50)
+        titleLabel?.frame = CGRectMake(16, self.bounds.height - 50, self.bounds.width - 32, 50)
         girlImageView?.frame = CGRectMake(16, 10, self.bounds.width - 32, self.bounds.height - 10)
+    }
+    
+    func setImageUrl(url: String) {
+        girlImageView?.image = nil
+        let URL = NSURL(string: url)
+        //girlImageView?.af_setImageWithURL(URL!, placeholderImage: nil)
+        girlImageView?.sd_setImageWithURL(URL, completed: { (image, error, cacheType, url) -> Void in
+            print("error : \(error)");
+        })
     }
 
 }
